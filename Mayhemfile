@@ -1,0 +1,5 @@
+project: rnshah9/ssocr
+target: ssocr
+
+cmds:
+  - cmd: /repo/ssocr @@
