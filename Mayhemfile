@@ -1,5 +1,8 @@
 project: ssocr
 target: ssocr
+image: ghcr.io/rnshah9/playground:ssocr
+testsuite:
+  - file://test.png
 
 cmds:
   - cmd: /repo/ssocr @@
