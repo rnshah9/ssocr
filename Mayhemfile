@@ -4,4 +4,4 @@ testsuite:
   - file://test.png
 
 cmds:
-  - cmd: /repo/ssocr @@
+  - cmd: /install/usr/local/bin/ssocr @@

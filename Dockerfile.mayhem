@@ -3,15 +3,13 @@ FROM --platform=linux/amd64 ubuntu:20.04 as builder
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y libx11-dev libimlib2-dev build-essential
 
-ADD . /repo
+COPY . /repo
 WORKDIR /repo
-RUN make -j8
-
-RUN mkdir -p /deps
-RUN ldd /repo/ssocr | tr -s '[:blank:]' '\n' | grep '^/' | xargs -I % sh -c 'cp % /deps;'
+RUN make -j8 
+RUN make install DESTDIR=/install
 
 FROM ubuntu:20.04 as package
+RUN apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y libimlib2-dev
 
-COPY --from=builder /deps /deps
-COPY --from=builder /repo/ssocr /repo/ssocr
-ENV LD_LIBRARY_PATH=/deps
+COPY --from=builder /install /install
